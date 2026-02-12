@@ -23,7 +23,7 @@ class Category:
 
     def transfer(self, amount, other_category):
         if self.check_funds(amount) == True:
-            self.withdraw(amount, f"Transfer to {other_category.name}`")
+            self.withdraw(amount, f"Transfer to {other_category.name}")
             other_category.deposit(amount, f"Transfer from {self.name}")
             return True
         else:
@@ -48,32 +48,40 @@ class Category:
             return True
         
     def __str__(self):
-        results = "transtions\n"
+        results = f"{self.name:*^30}\n"
         
-        for money in self.ledger:
-            results += f"Amount: {money["amount"]}  description: {money["description"]}\n"
+        for item in self.ledger:
+            results += f"{item["description"][:23]:<23}{item["amount"]:>7.2f}\n"
+        
+        results += f"Total: {self.get_balance():0.2f}"
+        
 
-        results += str(self.get_balance())
         return results
         
 
 def create_spend_chart(categories):
     pass
 
-food = Category("Food")
+# food = Category("Food")
 
-food.deposit(500, "beef")
+# food.deposit(500, "beef for my favoirte restruant that i work in right now")
 
-food.withdraw(500, "chicken")
+# food.withdraw(40.87, "chicken")
 
-car =  Category("Car")
+# car =  Category("Car")
 
-car.deposit(500, "engine part")
+# car.deposit(500, "engine part")
 
-car.transfer(400, food)
+# car.transfer(400, food)
 
-food.withdraw(401)
+# food.transfer(70, car)
 
-car.transfer(200, food)
+# print(food)
 
+food = Category('Food')
+food.deposit(1000, 'deposit')
+food.withdraw(10.15, 'groceries')
+food.withdraw(15.89, 'restaurant and more food for dessert')
+clothing = Category('Clothing')
+food.transfer(50, clothing)
 print(food)
