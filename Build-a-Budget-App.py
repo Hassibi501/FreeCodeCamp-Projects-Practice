@@ -63,7 +63,8 @@ def create_spend_chart(categories):
     
     total_withdraw_amount = 0
     current_withdraw_amount = 0
-    lst = []
+    withdraw_lst = []
+    percentage_lst = []
     dic = {}
     for category in categories:
         print(f"{category.name}: {category.ledger}")
@@ -76,11 +77,15 @@ def create_spend_chart(categories):
                 total_withdraw_amount += dic["amount"]
                 current_withdraw_amount += dic["amount"]
         if current_withdraw_amount != 0:
-            lst.append(round(current_withdraw_amount, 2))
+            withdraw_lst.append(current_withdraw_amount)
         current_withdraw_amount = 0
-    print(lst) 
+    print(withdraw_lst)
+    for num in withdraw_lst:
+        print((num/total_withdraw_amount) * 100)
+        percentage_lst.append(int((((num/total_withdraw_amount) * 100) // 10) * 10))
+        
     print(round(total_withdraw_amount, 2))
-    
+    print(percentage_lst)
     
 
 # food = Category("Food")
@@ -113,3 +118,5 @@ car.transfer(400, food)
 #print(food)
 
 create_spend_chart([food, clothing, car])
+
+
